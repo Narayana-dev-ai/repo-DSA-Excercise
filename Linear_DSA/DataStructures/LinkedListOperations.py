@@ -54,6 +54,18 @@ def insertAtSpecificPosition(head, insertNode, pos):
         current_node.next = newNode
     
     return head
+
+def findMinValue(head):
+    min_value = head.data
+    
+    current_node = head.next
+    while current_node:
+        if current_node.data < min_value:
+            min_value = current_node.data
+        
+        current_node = current_node.next
+    
+    return min_value
     
 node1 = Node(7)
 node2 = Node(11)
@@ -68,6 +80,8 @@ node4.next = node5
 
 print("Before Any Operation:")
 traverseList(node1)
+
+print(f"\nMinimum Value From the LinkedList: {findMinValue(node1)}")
 
 # Insert newNode
 newNode = Node(69)
