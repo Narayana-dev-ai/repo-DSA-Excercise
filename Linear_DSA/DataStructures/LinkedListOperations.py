@@ -67,6 +67,43 @@ def findMinValue(head):
     
     return min_value
     
+def swapNodes(head, node1, node2):
+    prevFirstNode = None
+    prevSecondNode = None
+    
+    if node1 == node2:
+        return head
+    
+    currentFirstNode = head
+    while currentFirstNode and currentFirstNode.data != node1:
+        prevFirstNode = currentFirstNode
+        currentFirstNode = currentFirstNode.next
+    
+    currentSecondNode = head
+    while currentSecondNode and currentSecondNode.data != node2:
+        prevSecondNode = currentSecondNode
+        currentSecondNode = currentSecondNode.next
+        
+    if not currentFirstNode or not currentSecondNode:
+        return head
+    
+    if prevFirstNode:
+        prevFirstNode.next = currentSecondNode
+    else:
+        head = currentSecondNode
+        
+    if prevSecondNode:
+        prevSecondNode.next = currentFirstNode
+    else:
+        head = prevFirstNode
+        
+    temp = currentFirstNode.next
+    currentFirstNode.next = currentSecondNode.next 
+    currentSecondNode.next = temp
+    
+    return head
+
+
 node1 = Node(7)
 node2 = Node(11)
 node3 = Node(3)
@@ -93,4 +130,9 @@ traverseList(node1)
 node1 = deleteSpecificNode(node1, node3)
 
 print("\nAfter deletion:")
+traverseList(node1)
+
+node1 = swapNodes(node1, 7, 69)
+
+print("\nAfter Swaping:")
 traverseList(node1)
