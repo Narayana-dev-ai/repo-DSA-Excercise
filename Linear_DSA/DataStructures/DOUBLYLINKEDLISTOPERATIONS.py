@@ -45,6 +45,42 @@ def deleteNode(head, node):
     
     
     return head
+
+def swapNodes(head, node1, node2):
+    current_node = head
+    
+    firstNode = None
+    secondNode = None
+    
+    while current_node:
+        if current_node.data == node1:
+            firstNode = current_node
+        if current_node.data == node2:
+            secondNode = current_node
+            
+        current_node = current_node.next
+   
+
+    temp = firstNode.next
+    firstNode.next = secondNode.next
+    secondNode.next = temp
+    
+    if firstNode.next != None:
+        firstNode.next.prev = firstNode
+    if secondNode.next != None:
+        secondNode.next.prev = secondNode
+    
+    temp = firstNode.prev
+    firstNode.prev = secondNode.prev
+    secondNode.prev = temp
+    
+    if firstNode.prev != None:
+        firstNode.prev.next = firstNode
+    if secondNode.prev != None:
+        secondNode.prev.next = secondNode
+
+    
+    return head
     
         
 node1 = Node(14)
@@ -81,4 +117,9 @@ traverseList(node1)
 node1 = deleteNode(node1, 19)
 
 print("\nAfter Deletion")
+traverseList(node1)
+
+node1 = swapNodes(node1, 24, 4)
+
+print("\nAfter Swaping Numbers")
 traverseList(node1)
