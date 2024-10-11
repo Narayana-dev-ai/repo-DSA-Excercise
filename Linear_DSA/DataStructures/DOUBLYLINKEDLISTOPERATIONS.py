@@ -3,6 +3,16 @@ class Node:
         self.data = data
         self.prev = None
         self.next = None
+        
+def traverseReverseOrder(head):
+    current_node = head
+    while current_node.next:
+        current_node = current_node.next
+        
+    while current_node:
+        print(current_node.data, end=" -> ")
+        current_node = current_node.prev
+    print("null")
 
 def traverseList(head):
     current_node = head
@@ -47,38 +57,49 @@ def deleteNode(head, node):
     return head
 
 def swapNodes(head, node1, node2):
-    current_node = head
+    prevFirstNode = None
+    prevSecondNode = None
     
-    firstNode = None
-    secondNode = None
+    if node1 == node2:
+        return head
     
-    while current_node:
-        if current_node.data == node1:
-            firstNode = current_node
-        if current_node.data == node2:
-            secondNode = current_node
-            
-        current_node = current_node.next
-   
-
-    temp = firstNode.next
-    firstNode.next = secondNode.next
-    secondNode.next = temp
+    currentFirstNode = head
+    while currentFirstNode and currentFirstNode.data != node1:
+        prevFirstNode = currentFirstNode
+        currentFirstNode = currentFirstNode.next
+        
+    currentSecondNode = head
+    while currentSecondNode and currentSecondNode.data != node2:
+        prevSecondNode = currentSecondNode
+        currentSecondNode = currentSecondNode.next
+        
+    if prevFirstNode:
+        prevFirstNode.next = currentSecondNode
+    else:
+        head = currentSecondNode
+        
+    if prevSecondNode:
+        prevSecondNode.next = currentFirstNode
+    else:
+        head = currentFirstNode
+        
+    temp = currentFirstNode.next
+    currentFirstNode.next = currentSecondNode.next
+    currentSecondNode.next = temp
     
-    if firstNode.next != None:
-        firstNode.next.prev = firstNode
-    if secondNode.next != None:
-        secondNode.next.prev = secondNode
+    if currentFirstNode.next:
+        currentFirstNode.next.prev = currentFirstNode
+    if currentSecondNode.next:
+        currentSecondNode.next.prev = currentSecondNode
+        
+    temp = currentFirstNode.prev
+    currentFirstNode.prev = currentSecondNode.prev
+    currentSecondNode.prev = temp
     
-    temp = firstNode.prev
-    firstNode.prev = secondNode.prev
-    secondNode.prev = temp
-    
-    if firstNode.prev != None:
-        firstNode.prev.next = firstNode
-    if secondNode.prev != None:
-        secondNode.prev.next = secondNode
-
+    if currentFirstNode.prev:
+        currentFirstNode.prev.next = currentFirstNode
+    if currentSecondNode.prev:
+        currentSecondNode.prev.next = currentSecondNode
     
     return head
     
@@ -108,18 +129,18 @@ print("Before Any Operatiion")
 traverseList(node1)
 
 newNode = Node(99)
-node1 = insertAtPosition(node1, newNode, 5)
+iNode = insertAtPosition(node1, newNode, 5)
 
 print("\nAfter Insertion")
-traverseList(node1)
+traverseList(iNode)
 
-
-node1 = deleteNode(node1, 19)
+dNode = deleteNode(node1, 19)
 
 print("\nAfter Deletion")
-traverseList(node1)
+traverseList(dNode)
 
-node1 = swapNodes(node1, 24, 4)
+sNodes = swapNodes(dNode, 50, 14)
 
 print("\nAfter Swaping Numbers")
-traverseList(node1)
+traverseList(sNodes)
+traverseReverseOrder(sNodes)
