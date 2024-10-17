@@ -140,7 +140,7 @@ inserResult = insertNode(root, 10)
 inOrderTraverse(inserResult)
 
 print("\nAfter Deleting 19")
-delResult = deleteNode(root, 13)
+delResult = deleteNode(root, 19)
 inOrderTraverse(delResult)
 
 print("\nCheck is BST or NOT:", isBST(root))
