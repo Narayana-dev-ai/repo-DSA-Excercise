@@ -14,6 +14,20 @@ So the time complexity for Quick Sort is: O(n log n)
 """
 
 my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+def opriont2ForPartition(array, low, hihg):
+    pivot = array[low]
+    i = low
+    j = hihg
+    
+    while i < j:
+        while array[i] <= pivot:
+            i+=1
+        while array[j] > pivot:
+            j-=1
+        if i<j:
+            array[i], array[j] = array[j], array[i]
+    array[low], array[j] = array[j], array[low]
+    return j
 
 def partition(array, low, high):
     pivot = array[high]
