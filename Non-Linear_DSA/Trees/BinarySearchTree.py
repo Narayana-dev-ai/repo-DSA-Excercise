@@ -34,7 +34,25 @@ def minValue(root):
     while current.left is not None:
         current = current.left
     return current
-        
+
+def maxValue(root):
+    current = root
+    while current.right is not None:
+        current = current.right
+    return current
+
+def isBST(root):
+    if root is None:
+        return True
+    
+    if root.left and maxValue(root.left).data >= root.data:
+        return False
+    if root.right and minValue(root.right).data <= root.data:
+        return False
+    
+    return isBST(root.left) and isBST(root.right)
+    
+
 def deleteNode(root, value):
     if not root:
         return None
@@ -124,3 +142,5 @@ inOrderTraverse(inserResult)
 print("\nAfter Deleting 19")
 delResult = deleteNode(root, 13)
 inOrderTraverse(delResult)
+
+print("\nCheck is BST or NOT:", isBST(root))
