@@ -27,6 +27,15 @@ def findGCD(a, b):
     else:
         return findGCD(a, b-a)
     
+def flattenArray(array, result):
+    for i in array:
+        if isinstance(i, list):
+            flattenArray(i, result)
+        else:
+            result.append(i)
+            
+    return result
+    
     
 print(factorial(5))
 array = [1,2,3,4,5]
@@ -34,3 +43,7 @@ reverseArrayRecusrively(array, 0, 4)
 print(array)
 print(fibanaaciElement(6))
 print(findGCD(36, 60))
+
+array_flat = [1, 3, 4, [12, 32, 2, [58, 76 ,9 , [10, 19 , 34, 67]] , 0], 90, 74, 13, [18, 61], 31]
+res = []
+print(flattenArray(array_flat, res))
