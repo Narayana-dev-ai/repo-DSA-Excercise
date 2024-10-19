@@ -37,6 +37,56 @@ def leftRotation(x):
     
     return y
 
+def minValueNode(node):
+    current = node
+    while current.left is not None:
+        current = current.left
+        
+    return current
+
+def deleteNode(node, data):
+    if not node:
+        return node
+    
+    if data < node.data:
+        node.left = deleteNode(node.left, data)
+    elif data > node.data:
+        node.right = deleteNode(node.right, data)
+    else:
+        if node.left is None:
+            temp = node.right 
+            node = None
+            return temp
+        elif node.right is None:
+            temp = node.left
+            node = None
+            return temp
+        else:
+            temp = minValueNode(node.right)
+            node.data = temp.data
+            node.right = deleteNode(node.right ,temp.data)
+            
+    if node is None:
+        return node
+    node.height = 1 + max(getHeight(node.left), getHeight(node.right))
+    balance = getBalance(node)
+    
+    if balance > 1 and getBalance(node.left) >= 0:
+        return rightRotate(node)
+    
+    if balance > 1 and getBalance(node.left) < 0:
+        node.left = leftRotation(node.left)
+        return rightRotate(node)
+    
+    if balance < -1 and getBalance(node.right) <= 0:
+        return leftRotation(node)
+    
+    if balance < -1 and getBalance(node.right) > 0:
+        node.right = rightRotate(node.right)
+        return leftRotation(node)
+    
+    return node
+
 def insertNode(node, data):
     if not node:
         return AvlNode(data)
@@ -78,4 +128,8 @@ letters = ['C', 'B', 'E', 'A', 'D', 'H', 'G', 'F']
 for i in letters:
     root = insertNode(root, i)
     
+inOrderTraversal(root)
+
+print("\n After Deletion of E")
+deleteNode(root, 'G')
 inOrderTraversal(root)
