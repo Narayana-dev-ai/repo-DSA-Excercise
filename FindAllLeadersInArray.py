@@ -24,8 +24,8 @@ def findLeaders(array, n):
     for i in range(n-2, -1, -1):
         if array[i] > maxFromRight:
             maxFromRight = array[i]
-            list.append(maxFromRight)
+            list.insert(0, maxFromRight)
     
-    return list[::-1]
+    return list
 
 print(findLeaders(leaders, n))
