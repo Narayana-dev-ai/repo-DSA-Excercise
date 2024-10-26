@@ -28,13 +28,29 @@ def binarysearch(array, target):
             right = mid - 1
             
     return -1
+
+def binarySearchRecursive(array, low, high, target):
+    if low > high:
+        return -1
+    
+    mid = (low + high) // 2
+    if array[mid] == target:
+        return mid
+    elif target > array[mid]:
+        return binarySearchRecursive(array, mid+1, high, target)
+    elif target < array[mid]:
+        return binarySearchRecursive(array, low, mid-1, target)
+    
+    
+def displayOutput(result, myTarget):
+    if result != -1:
+        print(f"Value {myTarget} found at index {result}")
+    else:
+        print(f"Target not found in array.")
  
 myArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-myTarget = 15
 
-result = binarysearch(myArray, myTarget)
+displayOutput(binarysearch(myArray, 15), 15)
+displayOutput(binarySearchRecursive(myArray, 0, len(myArray)-1, 1), 1)
 
-if result != -1:
-    print(f"Value {myTarget} found at index {result}")
-else:
-    print(f"Target not found in array.")
+
